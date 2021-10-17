@@ -1,9 +1,8 @@
 // content.js
 
 function getChannelId() {
-    if ($("#meta-contents").length) {
-        let meta = document.getElementById("meta-contents");
-        let a = meta.getElementsByClassName("ytd-video-owner-renderer")[0].href;
+    if ($("a.yt-simple-endpoint.style-scope.ytd-video-owner-renderer").length > 0) {
+        let a = document.querySelector("a.yt-simple-endpoint.style-scope.ytd-video-owner-renderer").href;
         return a.split("/").pop();
     } else { setTimeout(getChannelId, 300); }
 };
@@ -28,17 +27,16 @@ function randomizeAutoPlaylist() {
         let randomVideo = thumbnails[randomIndex].href;
         let randomVideoId = randomVideo.split("=")[1];
         if (randomVideoId == undefined) {
-            setTimeout(randomizeAutoPlaylist, 300);
+            setTimeout(randomizeAutoPlaylist, 500);
         }
         else {
             window.location.href = "https://www.youtube.com/watch?v=" + randomVideoId;
         }
-    } else { setTimeout(randomizeAutoPlaylist, 300); }
+    } else { setTimeout(randomizeAutoPlaylist, 500); }
 };
 
 function playerStatusChangeHandler() {
     try {
-        setTimeout(function () { }, 750);
         let channel = getChannelId();
         checkChannelBlock(channel);
     } catch (error) {
@@ -47,7 +45,7 @@ function playerStatusChangeHandler() {
 }
 
 // wait for next playlist to populate
-$(window).bind("load", () => {
+$("ytd-app").ready(() => {
     playerStatusChangeHandler();
     let player = document.querySelector("video");
     if (player !== undefined) {
