@@ -1,0 +1,33 @@
+/*
+ style.css
+*/
+
+body{
+    background-color: #696969;
+    color: white;
+    min-width: 200px;
+    max-width: 100%;
+    position: relative;
+
+}
+
+#menu-popup {
+    margin: .5em
+}
+
+#menu-channel-input {
+    margin: .5em;
+    height: 2em;
+}
+
+#menu-input-button {
+    height: 25px;
+    width: auto;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+}
+
+#menu-input-button.current {
+    box-shadow: 0 0 0 2px white, 0 0 0 4px black;
+}

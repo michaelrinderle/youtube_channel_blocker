@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "YTBlock",
+  "description": "YTBlock, block annoying yt channels",
+  "version": "0.0.1",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.youtube.com/watch?v=*"
+      ],
+      "js": [ "/src/js/jquery.js", "/src/js/content.js" ],
+      "run_at" :  "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "/src/js/background.js"
+  },
+  "options_page" :  "/src/options.html",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs",
+    "webNavigation"
+  ],
+  "action": {
+    "default_popup": "/src/menu.html",
+    "default_icon": {
+      "16": "/src/images/ytb-16.png",
+      "32": "/src/images/ytb-32.png",
+      "48": "/src/images/ytb-48.png",
+      "128": "/src/images/ytb-128.png"
+    }
+  },
+  "icons": {
+    "16": "/src/images/ytb-16.png",
+    "32": "/src/images/ytb-32.png",
+    "48": "/src/images/ytb-48.png",
+    "128": "/src/images/ytb-128.png"
+  }
+}
