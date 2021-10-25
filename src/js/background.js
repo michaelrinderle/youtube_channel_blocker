@@ -4,6 +4,7 @@
 let channels =
     [
         "UCXIJgqnII2ZOINSWNOGFThA", // FOX news
+        "UCCXoCcu9Rp7NPbTzIvogpZg", // Fox Business
         "UCaXkIU1QidjPwiAYu6GcHjg", // MSNBC
         "UCeY0bbntWzzVIaj2z3QigXg", // NBC News    
         "UCBi2mrWuNuyYy4gbM6fU18Q", // ABC News

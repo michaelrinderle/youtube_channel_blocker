@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\images"
+    "\\src\\js"
   ],
-  "SelectedNode": "\\ytb-logo.png",
+  "SelectedNode": "\\src\\js\\content.js",
   "PreviewInSolutionExplorer": false
 }
