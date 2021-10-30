@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <link rel="stylesheet" href="css/styles.css">
+    <title>YTBlock</title>
 </head>
 <body>
     <div id="menu-popup">
         <h1>YTBlock</h1>
-        <input id="menu-channel-input" placeholder="Channel ID"/>
-        <button id="menu-input-button">Block</button>
+        <div>
+            <button class="menu-btn" id="toggle-status">Toggle | 
+                <span id="status">Enabled</span>
+            </button>
+            <button class="menu-btn" id="block-channel">Block Current Channel</button>
+            <button class="menu-btn" id="get-options">Options</button>
+        </div>
     </div>
+    <script src="js/jquery.js"></script>
     <script src="js/menu.js"></script>
 </body>
 </html>

@@ -1,24 +1,35 @@
 // menu.js
 
-let blockButton = document.getElementById("menu-input-button");
+let toggleStatusButton = document.getElementById("toggle-status");
+let blockChannelButton = document.getElementById("block-channel");
+let getOptionsButton = document.getElementById("get-options");
+let status = document.getElementById("status");
 
-blockButton.addEventListener("click", async () => {
+toggleStatusButton.addEventListener("click", () => {
+    chrome.storage.sync.get("enabled", ({ enabled }) => {
+        enabled = !enabled;
+        status.innerText = enabled ? "Enabled" : "Disabled" 
+        chrome.storage.sync.set({ "enabled": enabled });
+    });
+});
 
-    let channel = document.getElementById("menu-channel-input").value;
-    if (channel === '') {
-        alert("no channel entered");
-        return;
-    }
-    else {
+blockChannelButton.addEventListener("click", () => {
+  
+    let css = "a.yt-simple-endpoint.style-scope.yt-formatted-string";
+    let element = $(css);
+    if (element.innerText > 0) {
+        let channelName = element.innerText;
+        let channelId = element.href.split("/").pop();
         chrome.storage.sync.get("channels", ({ channels }) => {
-            if (channels.indexOf(channel) >= 0) {
-                channels.push(channel);
-                chrome.storage.sync.set({ channels });
-                alert("channel is being blocked");
-            }
-            else {
-                alert("channel already being blocked");
-            }
+            channels[channelName] = channelId;
+            chrome.storage.sync.set({ "channels": channels });
         });
+        alert("channel blocked");
+    } else {
+        alert("no dice, error."); 
     }
+});
+
+getOptionsButton.addEventListener("click", () => {
+    chrome.tabs.create({ 'url': 'chrome://extensions/?options=' + chrome.runtime.id });
 });

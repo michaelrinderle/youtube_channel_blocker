@@ -1,46 +1,67 @@
-let page = document.getElementById("buttonDiv");
-let selectedClassName = "current";
-const presetButtonColors = ["#3aa757", "#e8453c", "#f9bb2d", "#4688f1"];
+// options.js
 
-// Reacts to a button click by marking the selected button and saving
-// the selection
-function handleButtonClick(event) {
-    // Remove styling from the previously selected color
-    let current = event.target.parentElement.querySelector(
-        `.${selectedClassName}`
-    );
-    if (current && current !== event.target) {
-        current.classList.remove(selectedClassName);
-    }
+let ul = document.getElementById("blocked-list");
 
-    // Mark the button as selected
-    let color = event.target.dataset.color;
-    event.target.classList.add(selectedClassName);
-    chrome.storage.sync.set({ color });
-}
+initialize = () => {
 
-// Add a button to the page for each supplied color
-function constructOptions(buttonColors) {
-    chrome.storage.sync.get("color", (data) => {
-        let currentColor = data.color;
-        // For each color we were provided…
-        for (let buttonColor of buttonColors) {
-            // …create a button with that color…
-            let button = document.createElement("button");
-            button.dataset.color = buttonColor;
-            button.style.backgroundColor = buttonColor;
+    let block = document.getElementById("block-submit");
+    block.onclick = () => {
 
-            // …mark the currently selected color…
-            if (buttonColor === currentColor) {
-                button.classList.add(selectedClassName);
-            }
+        let channelName = document.getElementById("channel-name").value;
+        let channelId = document.getElementById("channel-id").value;
 
-            // …and register a listener for when that button is clicked
-            button.addEventListener("click", handleButtonClick);
-            page.appendChild(button);
+        if (channelName !== '' &&
+            channelId !== '') {
+
+            chrome.storage.sync.get("channels", ({ channels }) => {
+                channels[channelName] = channelId;
+                chrome.storage.sync.set({ "channels": channels });
+            });
+
+            addElementToList(channelName, channelId);
+            return false;
+        }
+
+    };
+
+    chrome.storage.sync.get("channels", ({ channels }) => {
+        Object.keys(channels).forEach((key) => {
+
+            addElementToList(key, channels[key]);
+        });
+    });
+};
+
+addElementToList = (channel, id) => {
+
+    let li = document.createElement("li");
+    let div = document.createElement("row");
+    div.classList.add("col-sm")
+
+    let button = document.createElement("button");
+    let h2 = document.createElement("h2");
+    h2.appendChild(document.createTextNode(channel))
+
+    button.append(document.createTextNode("unblock"));
+    button.classList.add("btn", "btn-primary", "blocked-button");
+    button.onclick = () => {
+        unblockChannel(li, id);
+    };
+
+    li.appendChild(h2);
+    li.appendChild(button);
+    ul.appendChild(li);
+};
+
+unblockChannel = (li, channelId) => {
+    chrome.storage.sync.get("channels", ({ channels }) => {
+        let key = Object.keys(channels).find(key => channels[key] == channelId);
+        if (key != undefined) {
+            delete channels[key];
+            chrome.storage.sync.set({ "channels": channels });
+            li.parentNode.removeChild(li);
         }
     });
-}
+};
 
-// Initialize the page by constructing the color options
-constructOptions(presetButtonColors);
+initialize();
