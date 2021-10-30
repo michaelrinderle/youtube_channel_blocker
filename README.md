@@ -4,11 +4,11 @@
 + chrome extension to block undesirable channels like national news networks. 
 + add channel ids to block from extension icon. 
 
-# icon popup toggle
+# Icon Popup Toggle
 
 ![Screenshot](ytb-popup.png)
 
-+ options menu
+# Options Menu
 
 ![Screenshot](ytb-options.png)
 
