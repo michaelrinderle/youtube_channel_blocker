@@ -2,7 +2,8 @@
 ![Screenshot](ytb-logo.png)
 
 + chrome extension to block undesirable channels like national news networks. 
-+ add channel ids to block from extension icon. 
++ disable block functionality from extension icon. 
++ add new block channels from extensions options page. 
 
 # Icon Popup Toggle
 
