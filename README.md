@@ -7,5 +7,5 @@
 + add channel ids to block from extension icon. 
 
 + options menu
-![Screenshot](ytb-.png)
+![Screenshot](ytb-options.png)
 
